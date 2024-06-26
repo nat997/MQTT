@@ -12,3 +12,22 @@ def get_data(query):
     except mysql.connector.Error as err:
         st.error(f"Error: {err}")
         return pd.DataFrame()
+
+def calculate_statistics(df, period='H'):
+    df['timestamp'] = pd.to_datetime(df['timestamp'])
+    df.set_index('timestamp', inplace=True)
+    if period == 'H':
+        grouped_df = df.resample('H').agg({
+            'temperature': ['mean', 'min', 'max', 'std'],
+            'humidity': ['mean', 'min', 'max', 'std']
+        })
+    elif period == 'D':
+        grouped_df = df.resample('D').agg({
+            'temperature': ['mean', 'min', 'max', 'std'],
+            'humidity': ['mean', 'min', 'max', 'std']
+        })
+    return grouped_df
+
+def calculate_sensor_statistics(df, sensor_id, period='H'):
+    df = df[df['sensor_id'] == sensor_id]
+    return calculate_statistics(df, period)

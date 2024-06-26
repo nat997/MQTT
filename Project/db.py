@@ -1,6 +1,5 @@
 import mysql.connector
 
-# MySQL database configuration
 db_config = {
     'user': 'root',
     'password': 'root',

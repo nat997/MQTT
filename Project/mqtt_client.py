@@ -4,7 +4,7 @@ from db import connect_db
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
-    client.subscribe("sensor_data/#")  # Subscribe to all sensors
+    client.subscribe("sensor_data/#")  # Subscribe to all sensors , # for ID
 
 def on_message(client, userdata, msg):
     print(msg.topic + " " + str(msg.payload))
@@ -14,8 +14,6 @@ def on_message(client, userdata, msg):
         location = data['location']
         temperature = data.get('temperature')
         humidity = data.get('humidity')
-
-        # Insert data into MySQL, ignore duplicates
         global db_connection
         cursor = db_connection.cursor()
         cursor.execute("""

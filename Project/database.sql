@@ -9,5 +9,5 @@ CREATE TABLE sensors (
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     temperature FLOAT,
     humidity FLOAT,
-    UNIQUE(sensor_id, timestamp)  -- Ensure no duplicate entries for the same sensor and time
+    UNIQUE(sensor_id, timestamp)  
 );
